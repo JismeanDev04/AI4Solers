@@ -1,6 +1,5 @@
-package com.example.ai4solers.ui.theme
+package com.example.ai4solers.core.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
