@@ -11,6 +11,7 @@ import retrofit2.http.Part
 
 interface RemoveBgApi {
 
+    //remove background
     @Multipart
     @POST("v1.0/removebg")
     suspend fun removeBackground(

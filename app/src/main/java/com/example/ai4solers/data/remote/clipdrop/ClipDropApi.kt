@@ -19,6 +19,7 @@ interface ClipDropApi {
         @Part("prompt") prompt: RequestBody
     ): Response<ResponseBody>
 
+    //replace-background
     @Multipart
     @POST("replace-background/v1")
     suspend fun replaceBackground(
