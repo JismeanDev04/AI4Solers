@@ -14,6 +14,12 @@ android {
         version = release(36)
     }
 
+    packaging {
+        resources {
+            excludes += "/META-INF/gradle/incremental.annotation.processors"
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.ai4solers"
         minSdk = 26
