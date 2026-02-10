@@ -18,7 +18,7 @@ class AIProcessingRepositoryImpl @Inject constructor(
 ): IAIProcessingRepository {
 
     //text-to-image
-    override suspend fun generateTextToImage(
+    override fun generateTextToImage(
         prompt: String,
         apiKey: String
     ): Flow<Resource<Bitmap>> = flow {
@@ -54,7 +54,7 @@ class AIProcessingRepositoryImpl @Inject constructor(
     }
 
     //remove-background
-    override suspend fun removeBackground(
+    override fun removeBackground(
         imageFile: Bitmap,
         apiKey: String
     ): Flow<Resource<Bitmap>> {
@@ -62,7 +62,7 @@ class AIProcessingRepositoryImpl @Inject constructor(
     }
 
     //replace-background
-    override suspend fun replaceBackground(
+    override fun replaceBackground(
         imageFile: Bitmap,
         prompt: String,
         apiKey: String

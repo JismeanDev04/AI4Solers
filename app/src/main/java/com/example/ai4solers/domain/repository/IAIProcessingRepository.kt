@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.Flow
 interface IAIProcessingRepository {
 
     //text-to-image
-    suspend fun generateTextToImage(prompt: String, apiKey: String): Flow<Resource<Bitmap>>
+    fun generateTextToImage(prompt: String, apiKey: String): Flow<Resource<Bitmap>>
 
     //remove-background
-    suspend fun removeBackground(imageFile: Bitmap, apiKey: String): Flow<Resource<Bitmap>>
+    fun removeBackground(imageFile: Bitmap, apiKey: String): Flow<Resource<Bitmap>>
 
     //replace-background-with-prompt
-    suspend fun replaceBackground(imageFile: Bitmap, prompt: String, apiKey: String): Flow<Resource<Bitmap>>
+    fun replaceBackground(imageFile: Bitmap, prompt: String, apiKey: String): Flow<Resource<Bitmap>>
 
 }
