@@ -1,4 +1,4 @@
-package com.example.ai4solers.core.theme
+package com.example.ai4solers.core.ui
 
 import androidx.compose.ui.graphics.Color
 
