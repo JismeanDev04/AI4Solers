@@ -39,7 +39,12 @@ class TextToImageViewModel @Inject constructor(
         generateImageUseCase(currentPrompt).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
-                    _uiState.update { it.copy(isLoading = true, error = null) }
+                    _uiState.update {
+                        it.copy(
+                            isLoading = true,
+                            error = null
+                        )
+                    }
                 }
                 is Resource.Success -> {
                     _uiState.update {
