@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ai4solers.core.ui.AI4SolersTheme
+import com.example.ai4solers.ui.feature_history.HistoryScreen
 import com.example.ai4solers.ui.feature_tools.text_to_image.TextToImageScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AI4SolersTheme {
-                TextToImageScreen()
+                HistoryScreen()
             }
         }
     }
