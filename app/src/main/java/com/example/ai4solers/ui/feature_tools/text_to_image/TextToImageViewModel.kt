@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ai4solers.core.common.Resource
 import com.example.ai4solers.domain.usecase.GenerateImageUseCase
+import com.example.ai4solers.domain.usecase.SaveImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,12 +16,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TextToImageViewModel @Inject constructor(
-    private val generateImageUseCase: GenerateImageUseCase
+    private val generateImageUseCase: GenerateImageUseCase,
+    private val saveImageUseCase: SaveImageUseCase
 ): ViewModel() {
 
     //Init state
     private val _uiState = MutableStateFlow(TextToImageState())
+    private val _saveState = MutableStateFlow<Resource<Boolean>?>(null)
     val uiState: StateFlow<TextToImageState> = _uiState.asStateFlow()
+    val saveState = _saveState.asStateFlow()
 
     //Cap nhat prompt khi nguoi dung nhap
     fun onPromptChange(newPrompt: String) {
@@ -56,6 +60,26 @@ class TextToImageViewModel @Inject constructor(
                 }
             }
         }.launchIn(viewModelScope)
+    }
+
+    fun saveImage() {
+
+        val image = _uiState.value.resultImage
+        val prompt = _uiState.value.prompt
+
+        if (image != null) {
+            saveImageUseCase(
+                bitmap = image,
+                prompt = prompt,
+                toolType = "Text-to-image"
+            ).onEach { result ->
+                _saveState.value = result
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun resetSaveState() {
+        _saveState.value = null
     }
 
 }

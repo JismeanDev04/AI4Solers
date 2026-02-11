@@ -89,4 +89,7 @@ dependencies {
 
     implementation(libs.coil.compose)
     implementation(libs.kotlinx.coroutines.android)
+
+    implementation("androidx.compose.material:material-icons-core")
+    implementation("androidx.compose.material:material-icons-extended")
 }

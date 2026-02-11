@@ -27,11 +27,10 @@ class AIProcessingRepositoryImpl @Inject constructor(
         emit(Resource.Loading())
 
         try {
-            //bien luu du lieu gui di
-            val promptBody = prompt.toRequestBody("text/plain".toMediaTypeOrNull())
 
             //Goi api
-            val response = clipDropApi.textToImage(apiKey, promptBody)
+            val response = clipDropApi.textToImage(apiKey,
+                prompt.toRequestBody("text/plain".toMediaTypeOrNull()))
 
             //Check
             if (response.isSuccessful && response.body() != null) {
