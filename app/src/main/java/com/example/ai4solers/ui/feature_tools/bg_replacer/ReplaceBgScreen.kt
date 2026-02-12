@@ -17,18 +17,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -43,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil3.compose.rememberAsyncImagePainter
+import com.example.ai4solers.core.common.Resource
 import com.example.ai4solers.core.utils.FileUtils
 import java.io.File
 
@@ -53,6 +59,7 @@ fun ReplaceBgScreen(
 ) {
 
     val state by viewModel.uiState.collectAsState()
+    val saveState by viewModel.saveState.collectAsState()
     val context = LocalContext.current
 
     var tempCameraFile by remember { mutableStateOf<File?>(null) }
@@ -192,6 +199,26 @@ fun ReplaceBgScreen(
                 Text("Thay phông nền")
             }
 
+            //Nut luu hinh anh
+            if (state.resultImage != null) {
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = {
+                        viewModel.saveImage()
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Save,
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Lưu ảnh vào thư viện")
+                }
+            }
+
             if (state.error != null) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -202,6 +229,20 @@ fun ReplaceBgScreen(
 
         }
 
+    }
+
+    LaunchedEffect(saveState) {
+        when (saveState) {
+            is Resource.Loading -> {
+                Toast.makeText(context, "Đang lưu ảnh...", Toast.LENGTH_SHORT).show()
+                viewModel.resetSaveState()
+            }
+            is Resource.Error -> {
+                Toast.makeText(context, saveState?.message, Toast.LENGTH_SHORT).show()
+                viewModel.resetSaveState()
+            }
+            else -> {}
+        }
     }
 
 }

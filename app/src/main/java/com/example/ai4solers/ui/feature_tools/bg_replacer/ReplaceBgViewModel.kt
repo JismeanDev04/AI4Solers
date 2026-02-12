@@ -18,7 +18,7 @@ import javax.inject.Inject
 class ReplaceBgViewModel @Inject constructor(
     private val replaceBackgroundUseCase: ReplaceBackgroundUseCase,
     private val saveImageUseCase: SaveImageUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ReplaceBgState())
     private val _saveState = MutableStateFlow<Resource<Boolean>?>(null)
@@ -56,6 +56,7 @@ class ReplaceBgViewModel @Inject constructor(
                             error = null
                         )
                     }
+
                 is Resource.Success ->
                     _uiState.update {
                         it.copy(
@@ -63,6 +64,7 @@ class ReplaceBgViewModel @Inject constructor(
                             resultImage = result.data
                         )
                     }
+
                 is Resource.Error ->
                     _uiState.update {
                         it.copy(
@@ -72,6 +74,26 @@ class ReplaceBgViewModel @Inject constructor(
                     }
             }
         }.launchIn(viewModelScope)
+    }
+
+    //Luu anh sau khi replace background
+    fun saveImage() {
+        val result = _uiState.value.resultImage
+        val prompt = _uiState.value.prompt
+
+        if (result != null) {
+            saveImageUseCase(
+                bitmap = result,
+                prompt = prompt,
+                toolType = "Replace Background"
+            ).onEach { result ->
+                _saveState.value = result
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun resetSaveState() {
+        _saveState.value = null
     }
 
 }

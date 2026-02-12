@@ -18,7 +18,7 @@ import javax.inject.Inject
 class RemoveBgViewModel @Inject constructor(
     private val removeBackgroundUseCase: RemoveBackgroundUseCase,
     private val saveImageUseCase: SaveImageUseCase
-): ViewModel() {
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(RemoveBgState())
     private val _saveState = MutableStateFlow<Resource<Boolean>?>(null)
@@ -44,6 +44,7 @@ class RemoveBgViewModel @Inject constructor(
                             error = null
                         )
                     }
+
                 is Resource.Success ->
                     _uiState.update {
                         it.copy(
@@ -51,6 +52,7 @@ class RemoveBgViewModel @Inject constructor(
                             resultImage = result.data
                         )
                     }
+
                 is Resource.Error ->
                     _uiState.update {
                         it.copy(
@@ -61,6 +63,24 @@ class RemoveBgViewModel @Inject constructor(
             }
         }.launchIn(viewModelScope)
 
+    }
+
+    //Luu anh sau khi remove background
+    fun saveImage() {
+        val result = _uiState.value.resultImage
+        if (result != null) {
+            saveImageUseCase(
+                bitmap = result,
+                prompt = "",
+                toolType = "Remove Background"
+            ).onEach { result ->
+                _saveState.value = result
+            }.launchIn(viewModelScope)
+        }
+    }
+
+    fun resetSaveState() {
+        _saveState.value = null
     }
 
 
