@@ -42,6 +42,7 @@ import androidx.core.content.ContextCompat
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import coil3.compose.rememberAsyncImagePainter
 import com.example.ai4solers.core.utils.FileUtils
+import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,19 +54,16 @@ fun RemoveBgScreen(
     val context = LocalContext.current
 
     //Giu Uri khi chup anh
-    var tempCameraUri by remember { mutableStateOf<Uri?>(null) }
+    var tempCameraFile by remember { mutableStateOf<File?>(null) }
 
     //Xu ly viec chup anh, neu thanh cong thi chuyen thanh File de upload
     val cameraLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicture(),
         onResult = { success ->
-            if (success && tempCameraUri != null) {
+            if (success && tempCameraFile != null) {
 
                 //Chup thanh cong convert Uri sang File xu ly
-                val file = FileUtils.uriToFile(context, tempCameraUri!!)
-                if (file != null) {
-                    viewModel.onImageSelected(file)
-                }
+                viewModel.onImageSelected(tempCameraFile!!)
             }
         }
     )
@@ -77,8 +75,8 @@ fun RemoveBgScreen(
             if (isGranted) {
                 //Quyen da duoc cap phep
                 val file = FileUtils.createTempImageFile(context)
+                tempCameraFile = file
                 val uri = FileUtils.getUriForFile(context, file)
-                tempCameraUri = uri
                 cameraLauncher.launch(uri)
             } else {
                 Toast.makeText(context, "Cần quyền truy cập camera", Toast.LENGTH_SHORT).show()
@@ -153,8 +151,8 @@ fun RemoveBgScreen(
 
                         if (permissionCheckResult == PackageManager.PERMISSION_GRANTED) {
                             val file = FileUtils.createTempImageFile(context)
+                            tempCameraFile = file
                             val uri = FileUtils.getUriForFile(context, file)
-                            tempCameraUri = uri
                             cameraLauncher.launch(uri)
                         } else {
                             permissionLauncher.launch(Manifest.permission.CAMERA)

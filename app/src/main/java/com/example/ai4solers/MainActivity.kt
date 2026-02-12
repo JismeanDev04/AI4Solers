@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.ai4solers.core.ui.AI4SolersTheme
 import com.example.ai4solers.ui.feature_history.HistoryScreen
 import com.example.ai4solers.ui.feature_tools.bg_remover.RemoveBgScreen
+import com.example.ai4solers.ui.feature_tools.bg_replacer.ReplaceBgScreen
 import com.example.ai4solers.ui.feature_tools.text_to_image.TextToImageScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AI4SolersTheme {
-                TextToImageScreen()
+                RemoveBgScreen()
             }
         }
     }

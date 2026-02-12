@@ -85,11 +85,39 @@ class AIProcessingRepositoryImpl @Inject constructor(
 
     //replace-background
     override fun replaceBackground(
-        imageFile: Bitmap,
+        imageFile: File,
         prompt: String,
         apiKey: String
-    ): Flow<Resource<Bitmap>> {
-        TODO("Not yet implemented")
+    ): Flow<Resource<Bitmap>> = flow {
+
+        emit(Resource.Loading())
+
+        try {
+            val imagePart = MultipartBody.Part.createFormData(
+                "image_file",
+                imageFile.name,
+                imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+            )
+            val response = clipDropApi.replaceBackground(
+                apiKey,
+                imagePart,
+                prompt.toRequestBody("text/plain".toMediaTypeOrNull())
+            )
+
+            if (response.isSuccessful && response.body() != null) {
+
+                val inputStream = response.body()!!.byteStream()
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+
+                emit(Resource.Success(bitmap))
+            } else {
+                emit(Resource.Error("Lỗi server: ${response.code()} - ${response.message()}"))
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emit(Resource.Error("Lỗi kết nối: ${e.message}"))
+        }
+
     }
 
 }

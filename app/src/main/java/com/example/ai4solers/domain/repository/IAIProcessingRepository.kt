@@ -14,6 +14,6 @@ interface IAIProcessingRepository {
     fun removeBackground(imageFile: File, apiKey: String): Flow<Resource<Bitmap>>
 
     //replace-background-with-prompt
-    fun replaceBackground(imageFile: Bitmap, prompt: String, apiKey: String): Flow<Resource<Bitmap>>
+    fun replaceBackground(imageFile: File, prompt: String, apiKey: String): Flow<Resource<Bitmap>>
 
 }
