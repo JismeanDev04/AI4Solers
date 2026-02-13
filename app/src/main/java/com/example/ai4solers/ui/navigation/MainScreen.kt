@@ -89,8 +89,8 @@ fun MainScreen() {
         ) {
             composable<Route.Home> {
                 HomeScreen(
-                    onNavigateToFeature = {
-                        navController.navigate(Route.Feature)
+                    onNavigateToFeature = { target ->
+                        navController.navigate(target)
                     }
                 )
             }

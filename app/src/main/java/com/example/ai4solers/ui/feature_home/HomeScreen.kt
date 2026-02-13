@@ -1,6 +1,7 @@
 package com.example.ai4solers.ui.feature_home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,10 +38,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ai4solers.ui.navigation.FeatureQuickAccessCard
+import com.example.ai4solers.ui.navigation.Route
 
 @Composable
 fun HomeScreen(
-    onNavigateToFeature: () -> Unit
+    onNavigateToFeature: (Route) -> Unit
 ) {
 
     Column(
@@ -91,7 +94,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Button(
-                        onClick = onNavigateToFeature,
+                        onClick = { onNavigateToFeature(Route.Feature) },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE94057)),
                         shape = RoundedCornerShape(50)
                     ) {
@@ -114,15 +117,7 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            CircleMenuItem("Chat", androidx.compose.material.icons.Icons.Default.Chat)
-            CircleMenuItem("Create", androidx.compose.material.icons.Icons.Default.Create)
-            CircleMenuItem("Remove", androidx.compose.material.icons.Icons.Default.Redo)
-            CircleMenuItem("Replace", androidx.compose.material.icons.Icons.Default.FindReplace)
-        }
+        FeatureQuickAccessCard(onNavigate = onNavigateToFeature)
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -147,7 +142,9 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+        LazyRow(
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             items(5) { index ->
                 CategoryCard(index)
             }
@@ -160,27 +157,35 @@ fun HomeScreen(
 @Composable
 fun CircleMenuItem(
     title: String,
-    icon: androidx.compose.ui.graphics.vector.ImageVector
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    onClick: () -> Unit
 ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clickable { onClick() }
+            .padding(4.dp)
+    ) {
         Box(
             modifier = Modifier
-                .size(60.dp)
+                .size(56.dp)
                 .clip(CircleShape)
-                .background(Color(0xFF252525)),
+                .background(Color(0xFF333333)),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 icon,
                 contentDescription = null,
-                tint = Color.White
+                tint = Color.White,
+                modifier = Modifier.size(28.dp)
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             title,
             color = Color.Gray,
-            fontSize = 12.sp
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium
         )
     }
 }
@@ -192,7 +197,7 @@ fun CategoryCard(index: Int) {
         shape = RoundedCornerShape(20.dp),
         modifier = Modifier
             .width(160.dp)
-            .height(200.dp)
+            .height(260.dp)
     ) {
 
         Box(
