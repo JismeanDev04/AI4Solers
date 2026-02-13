@@ -1,5 +1,6 @@
 package com.example.ai4solers.ui.feature_home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,11 +19,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Chat
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.FindReplace
-import androidx.compose.material.icons.filled.Redo
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -35,9 +31,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ai4solers.R
 import com.example.ai4solers.ui.navigation.FeatureQuickAccessCard
 import com.example.ai4solers.ui.navigation.Route
 
@@ -77,7 +76,7 @@ fun HomeScreen(
                         .fillMaxWidth(0.6f)
                 ) {
                     Text(
-                        "Elevate your images with AI magic",
+                        "Trò chuyện với Gemini",
                         color = Color.White,
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold
@@ -86,7 +85,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Text(
-                        "Transform your images AI magic",
+                        "Cùng trải nghiệm với mô hình mới nhất từ Google",
                         color = Color.Gray,
                         fontSize = 14.sp
                     )
@@ -106,10 +105,18 @@ fun HomeScreen(
                     modifier = Modifier
                         .align(Alignment.CenterEnd)
                         .padding(end = 16.dp)
-                        .size(100.dp)
+                        .height(150.dp)
+                        .width(135.dp)
                         .clip(RoundedCornerShape(16.dp))
                         .background(Color.Gray)
-                )
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.go_min_si),
+                        contentDescription = "my_crush",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize()
+                    )
+                }
 
             }
 
