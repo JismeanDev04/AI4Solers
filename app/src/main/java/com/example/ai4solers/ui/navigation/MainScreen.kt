@@ -111,9 +111,21 @@ fun MainScreen() {
                 PlaceholderScreen("Đang phát triển tính năng")
             }
 
-            composable<Route.TextToImage> { TextToImageScreen() }
-            composable<Route.RemoveBg> { RemoveBgScreen() }
-            composable<Route.ReplaceBg> { ReplaceBgScreen() }
+            composable<Route.TextToImage> {
+                TextToImageScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+            composable<Route.RemoveBg> {
+                RemoveBgScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+            composable<Route.ReplaceBg> {
+                ReplaceBgScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
             composable<Route.History> { HistoryScreen() }
 
         }

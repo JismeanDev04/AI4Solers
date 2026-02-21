@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -28,6 +29,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -55,7 +57,8 @@ import java.io.File
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReplaceBgScreen(
-    viewModel: ReplaceBgViewModel = hiltViewModel()
+    viewModel: ReplaceBgViewModel = hiltViewModel(),
+    onBackClick: () -> Unit
 ) {
 
     val state by viewModel.uiState.collectAsState()
@@ -104,7 +107,15 @@ fun ReplaceBgScreen(
 
     Scaffold(
         topBar = { CenterAlignedTopAppBar(
-            title = { Text("Thay phông nền với AI") }
+            title = { Text("Thay phông nền với AI") },
+            navigationIcon = {
+                IconButton(onClick = onBackClick) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Quay lại"
+                    )
+                }
+            }
         ) }
     ) { padding ->
 

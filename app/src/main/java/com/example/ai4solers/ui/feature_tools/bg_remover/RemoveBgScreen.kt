@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -26,6 +27,7 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -52,7 +54,8 @@ import java.io.File
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RemoveBgScreen(
-    viewModel: RemoveBgViewModel = hiltViewModel()
+    viewModel: RemoveBgViewModel = hiltViewModel(),
+    onBackClick: () -> Unit
 ) {
 
     val state by viewModel.uiState.collectAsState()
@@ -106,7 +109,17 @@ fun RemoveBgScreen(
 
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("Xóa phông nền") }
+                title = { Text("Xóa phông nền") },
+                navigationIcon = {
+                    IconButton(onClick = onBackClick) {
+
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Quay lại"
+                        )
+
+                    }
+                }
             )
         }
     ) { padding ->
