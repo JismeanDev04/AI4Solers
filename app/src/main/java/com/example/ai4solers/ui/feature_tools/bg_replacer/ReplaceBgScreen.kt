@@ -245,7 +245,7 @@ fun ReplaceBgScreen(
     LaunchedEffect(saveState) {
         when (saveState) {
             is Resource.Loading -> {
-                Toast.makeText(context, "Đang lưu ảnh...", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Đã lưu ảnh thành công!", Toast.LENGTH_SHORT).show()
                 viewModel.resetSaveState()
             }
             is Resource.Error -> {
