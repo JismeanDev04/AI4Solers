@@ -126,7 +126,11 @@ fun MainScreen() {
                     onBackClick = { navController.popBackStack() }
                 )
             }
-            composable<Route.History> { HistoryScreen() }
+            composable<Route.History> {
+                HistoryScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
 
         }
     }
