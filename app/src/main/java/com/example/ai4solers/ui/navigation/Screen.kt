@@ -37,6 +37,9 @@ sealed interface Route {
 
     @Serializable
     data object History : Route
+
+    @Serializable
+    data object Chat: Route
 }
 
 data class BottomNavItem(

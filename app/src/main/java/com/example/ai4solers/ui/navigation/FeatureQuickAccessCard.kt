@@ -45,7 +45,7 @@ fun FeatureQuickAccessCard(
             CircleMenuItem(
                 title = "Chat",
                 icon = Icons.Default.Chat,
-                onClick = {}
+                onClick = { onNavigate(Route.Chat)}
             )
 
             CircleMenuItem(

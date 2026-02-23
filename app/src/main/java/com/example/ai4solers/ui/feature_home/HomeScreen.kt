@@ -93,7 +93,7 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Button(
-                        onClick = { onNavigateToFeature(Route.Feature) },
+                        onClick = { onNavigateToFeature(Route.Chat) },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFE94057)),
                         shape = RoundedCornerShape(50)
                     ) {

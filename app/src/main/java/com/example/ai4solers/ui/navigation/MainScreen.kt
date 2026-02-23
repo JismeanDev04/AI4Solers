@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.ai4solers.ui.feature_chat.ChatScreen
 import com.example.ai4solers.ui.feature_dashboard.FeatureDashboardScreen
 import com.example.ai4solers.ui.feature_history.HistoryScreen
 import com.example.ai4solers.ui.feature_home.HomeScreen
@@ -128,6 +129,11 @@ fun MainScreen() {
             }
             composable<Route.History> {
                 HistoryScreen(
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+            composable<Route.Chat> {
+                ChatScreen(
                     onBackClick = { navController.popBackStack() }
                 )
             }
