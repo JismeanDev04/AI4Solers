@@ -1,5 +1,7 @@
 package com.example.ai4solers.core.common
 
+import com.google.ai.client.generativeai.BuildConfig
+
 object Constants {
     //Database
     const val DATABASE_NAME = "ai4solers_db"
@@ -10,10 +12,10 @@ object Constants {
     //API key
     //xem trong local.properties, nham de tranh leak key
     //test
-    const val CLIP_DROP_API_KEY = "7e5a67e6247fbde52e35e005e9c2077c5fa4d29339808d41778261f1a361351c4b3d942a19a27ac84f13f5740c38e481"
-    const val REMOVE_BG_API_KEY = "E1pQmhg5sYort4tV7bFQYrhK"
+    const val CLIP_DROP_API_KEY = com.example.ai4solers.BuildConfig.CLIP_DROP_API_KEY
+    const val REMOVE_BG_API_KEY = com.example.ai4solers.BuildConfig.REMOVE_BG_API_KEY
+    const val GEMINI_API_KEY  = com.example.ai4solers.BuildConfig.GEMINI_API_KEY
 
-    const val GEMINI_API_KEY  = "AIzaSyCkuYUduuOAb4s8xYnhnpdemleG2tOGbkA"
     //base url
     const val CLIP_DROP_URL = "https://clipdrop-api.co/"
     const val REMOVE_BG_URL = "https://api.remove.bg/"

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,6 +8,12 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinSerialization)
 
+}
+
+val properties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.inputStream())
 }
 
 android {
@@ -20,6 +28,11 @@ android {
         }
     }
 
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.example.ai4solers"
         minSdk = 26
@@ -32,6 +45,16 @@ android {
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val geminiKey = properties.getProperty("GEMINI_API_KEY") ?: ""
+        buildConfigField("String", "GEMINI_API_KEY", "\"$geminiKey\"")
+
+        val clipDropKey = properties.getProperty("CLIP_DROP_API_KEY") ?: ""
+        buildConfigField("String", "CLIP_DROP_API_KEY", "\"$clipDropKey\"")
+
+        val removeBgKey = properties.getProperty("REMOVE_BG_API_KEY") ?: ""
+        buildConfigField("String", "REMOVE_BG_API_KEY", "\"$removeBgKey\"")
+
     }
 
     buildTypes {
@@ -49,9 +72,6 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
-    }
-    buildFeatures {
-        compose = true
     }
 }
 
