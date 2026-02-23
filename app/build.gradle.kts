@@ -92,4 +92,6 @@ dependencies {
 
     implementation("androidx.compose.material:material-icons-core")
     implementation("androidx.compose.material:material-icons-extended")
+
+    implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
 }
