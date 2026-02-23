@@ -3,8 +3,8 @@ package com.example.ai4solers.data.repository
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.example.ai4solers.core.common.Resource
-import com.example.ai4solers.data.remote.clipdrop.ClipDropApi
-import com.example.ai4solers.data.remote.removebg.RemoveBgApi
+import com.example.ai4solers.data.remote.ClipDropApi
+import com.example.ai4solers.data.remote.RemoveBgApi
 import com.example.ai4solers.domain.repository.IAIProcessingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

@@ -87,4 +87,10 @@ class TextToImageViewModel @Inject constructor(
         _saveState.value = null
     }
 
+    fun setInitialPrompt(prompt: String) {
+        if (prompt.isNotBlank() && _uiState.value.prompt.isBlank()) {
+            _uiState.update { it.copy(prompt = prompt) }
+        }
+    }
+
 }

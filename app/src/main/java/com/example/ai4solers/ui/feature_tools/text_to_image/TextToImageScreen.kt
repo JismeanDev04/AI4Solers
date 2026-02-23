@@ -47,6 +47,7 @@ import com.example.ai4solers.core.common.Resource
 @Composable
 fun TextToImageScreen(
     viewModel: TextToImageViewModel = hiltViewModel(),
+    initialPrompt: String = "",
     onBackClick: () -> Unit
 ) {
 
@@ -55,6 +56,12 @@ fun TextToImageScreen(
     val saveState by viewModel.saveState.collectAsState()
 
     val context = LocalContext.current
+
+    LaunchedEffect(initialPrompt) {
+        if (initialPrompt.isNotBlank()) {
+            viewModel.setInitialPrompt(initialPrompt)
+        }
+    }
 
     //Scaffold dung khung UI
     Scaffold(

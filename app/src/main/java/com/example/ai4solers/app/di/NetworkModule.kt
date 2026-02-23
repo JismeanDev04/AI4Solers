@@ -1,8 +1,8 @@
 package com.example.ai4solers.app.di
 
 import com.example.ai4solers.core.common.Constants
-import com.example.ai4solers.data.remote.clipdrop.ClipDropApi
-import com.example.ai4solers.data.remote.removebg.RemoveBgApi
+import com.example.ai4solers.data.remote.ClipDropApi
+import com.example.ai4solers.data.remote.RemoveBgApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

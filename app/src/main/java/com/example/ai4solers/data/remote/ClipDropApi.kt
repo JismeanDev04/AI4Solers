@@ -1,4 +1,4 @@
-package com.example.ai4solers.data.remote.clipdrop
+package com.example.ai4solers.data.remote
 
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
