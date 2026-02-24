@@ -51,7 +51,7 @@ fun FeatureQuickAccessCard(
             CircleMenuItem(
                 title = "Create",
                 icon = Icons.Default.Create,
-                onClick = { onNavigate(Route.TextToImage) }
+                onClick = { onNavigate(Route.TextToImage()) }
             )
 
             CircleMenuItem(

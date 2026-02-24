@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,10 +41,44 @@ import com.example.ai4solers.R
 import com.example.ai4solers.ui.navigation.FeatureQuickAccessCard
 import com.example.ai4solers.ui.navigation.Route
 
+
+data class CategoryItem(
+    val title: String,
+    val subtitle: String,
+    val prompt: String,
+    val color: Color
+)
 @Composable
 fun HomeScreen(
     onNavigateToFeature: (Route) -> Unit
 ) {
+
+    val categories = listOf(
+        CategoryItem(
+            title = "Luyện Nói Tiếng Anh",
+            subtitle = "Tình huống giao tiếp",
+            prompt = "A highly detailed, realistic image of a busy coffee shop with people talking and drinking coffee, 4k resolution, perfect for practicing english describing a scene",
+            color = Color(0xFF4A3B3B)
+        ),
+        CategoryItem(
+            title = "Minh Họa Truyện",
+            subtitle = "Dự án văn học",
+            prompt = "Cinderella running away from the grand ball, leaving a glass slipper on the stairs, magical glowing atmosphere, disney animation style, highly detailed",
+            color = Color(0xFF3B4A48)
+        ),
+        CategoryItem(
+            title = "Sản Phẩm",
+            subtitle = "Marketing",
+            prompt = "A sleek perfume bottle on a modern wooden table with soft sunlight and green plants in the blurred background, product photography, 8k",
+            color = Color(0xFF4A423B)
+        ),
+        CategoryItem(
+            title = "Cyberpunk Avatar",
+            subtitle = "Ảnh đại diện",
+            prompt = "A cyberpunk character portrait in a neon-lit futuristic city, highly detailed face, cinematic lighting, digital art",
+            color = Color(0xFF3B3B4A)
+        )
+    )
 
     Column(
         modifier = Modifier
@@ -152,8 +187,13 @@ fun HomeScreen(
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(5) { index ->
-                CategoryCard(index)
+            items(categories) { category ->
+                CategoryCard(
+                    item = category,
+                    onClick = {
+                        onNavigateToFeature(Route.TextToImage(prefillPrompt = category.prompt))
+                    }
+                )
             }
         }
 
@@ -198,47 +238,35 @@ fun CircleMenuItem(
 }
 
 @Composable
-fun CategoryCard(index: Int) {
-
+fun CategoryCard(item: CategoryItem, onClick: () -> Unit) {
     Card(
         shape = RoundedCornerShape(20.dp),
         modifier = Modifier
-            .width(160.dp)
-            .height(260.dp)
+            .width(200.dp)
+            .height(160.dp)
+            .clickable { onClick() },
+        elevation = CardDefaults.cardElevation(4.dp)
     ) {
-
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.DarkGray)
-        ) {
-            Box(
+        Box(modifier = Modifier.fillMaxSize().background(item.color)) {
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(
-                        if (index % 2 == 0) Color(0xFF4A3B3B) else Color(0xFF3B4A48)
-                    )
-            )
-            Box(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
-                    .padding(12.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(Color.White.copy(alpha = 0.2f))
-                    .padding(8.dp)
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.Bottom
             ) {
                 Text(
-                    if (index == 0) "AI HD Restore" else "AI Avatars",
+                    text = item.subtitle,
+                    color = Color.LightGray,
+                    fontSize = 12.sp
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = item.title,
                     color = Color.White,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.align(Alignment.Center)
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
                 )
             }
-
         }
-
     }
-
 }

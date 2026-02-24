@@ -27,7 +27,7 @@ sealed interface Route {
     data object Setting: Route
 
     @Serializable
-    data object TextToImage : Route
+    data class TextToImage(val prefillPrompt: String = "") : Route
 
     @Serializable
     data object RemoveBg : Route
@@ -56,7 +56,7 @@ val mainBottomNavItems = listOf(
 )
 
 val bottomNavItems = listOf(
-    BottomNavItem(Route.TextToImage, "Tạo ảnh", Icons.Default.Create),
+    BottomNavItem(Route.TextToImage(), "Tạo ảnh", Icons.Default.Create),
     BottomNavItem(Route.RemoveBg, "Xóa nền", Icons.Default.ContentCut),
     BottomNavItem(Route.ReplaceBg, "Thay nền", Icons.Default.Brush),
     BottomNavItem(Route.History, "Xem ảnh", Icons.Default.History)

@@ -23,6 +23,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.ai4solers.ui.feature_chat.ChatScreen
 import com.example.ai4solers.ui.feature_dashboard.FeatureDashboardScreen
 import com.example.ai4solers.ui.feature_history.HistoryScreen
@@ -112,8 +113,10 @@ fun MainScreen() {
                 PlaceholderScreen("Đang phát triển tính năng")
             }
 
-            composable<Route.TextToImage> {
+            composable<Route.TextToImage> { backStackEntry ->
+                val route = backStackEntry.toRoute<Route.TextToImage>()
                 TextToImageScreen(
+                    initialPrompt = route.prefillPrompt,
                     onBackClick = { navController.popBackStack() }
                 )
             }

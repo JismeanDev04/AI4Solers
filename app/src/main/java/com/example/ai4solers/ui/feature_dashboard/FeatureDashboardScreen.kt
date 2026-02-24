@@ -46,7 +46,7 @@ fun FeatureDashboardScreen(
     onNavigateToTool: (Route) -> Unit
 ) {
     val features = listOf(
-        FeatureItem("Tạo ảnh AI", Icons.Default.Create, Route.TextToImage, Color(0xFF6C63FF)),
+        FeatureItem("Tạo ảnh AI", Icons.Default.Create, Route.TextToImage(), Color(0xFF6C63FF)),
         FeatureItem("Xóa phông", Icons.Default.ContentCut, Route.RemoveBg, Color(0xFFFF6584)),
         FeatureItem("Thay nền", Icons.Default.Brush, Route.ReplaceBg, Color(0xFFFFC048)),
         FeatureItem("Lịch sử", Icons.Default.History, Route.History, Color(0xFF00D2D3)),
